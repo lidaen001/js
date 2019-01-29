@@ -55,64 +55,64 @@
 
         }
 
-//     预编译对于js来说，首先会有一个预编译期的过程，那么在家个预编译期中会发生什么？
-// 预编译：有函数预编译AO，全局预编译GO
-// 预编译是发生在函数执行的前一刻。
-// (函数)预编译分四个步骤：
-// function test(a,b){
-// console.log(a);
-// var c = 123;
-// console.log©;
-// function a(){};//这个是函数声明
-// console.log(b);
-// var b = function c(){};//这个是函数表达式
-// console.log(b);
-// }
-// test(1,3);
+        //     预编译对于js来说，首先会有一个预编译期的过程，那么在家个预编译期中会发生什么？
+        // 预编译：有函数预编译AO，全局预编译GO
+        // 预编译是发生在函数执行的前一刻。
+        // (函数)预编译分四个步骤：
+        // function test(a,b){
+        // console.log(a);
+        // var c = 123;
+        // console.log©;
+        // function a(){};//这个是函数声明
+        // console.log(b);
+        // var b = function c(){};//这个是函数表达式
+        // console.log(b);
+        // }
+        // test(1,3);
 
-// 1：创建一个AO对象（activation object）,AO{}
-// 2: 将函数内所有的形参和变量声明（的名）储存到ao对象中，value为undifined
-// AO{
-// a:undefined,
-// b:undefined,
-// c:undefined
-// }
-// 3:将形参和实参进行统一。
-// AO{
-// a:1,
-// b:3,
-// c:undefined
-// }
-// 4:将所有的函数声明的函数名作为ao对象中的key,函数整体内容为value储存到ao对象中
-// AO{
-// a:function a(){},
-// b:3,
-// c:undefined
-// }
-// 最后执行函数的结果为：
-// function a(){}，123，3，function c(){}
+        // 1：创建一个AO对象（activation object）,AO{}
+        // 2: 将函数内所有的形参和变量声明（的名）储存到ao对象中，value为undifined
+        // AO{
+        // a:undefined,
+        // b:undefined,
+        // c:undefined
+        // }
+        // 3:将形参和实参进行统一。
+        // AO{
+        // a:1,
+        // b:3,
+        // c:undefined
+        // }
+        // 4:将所有的函数声明的函数名作为ao对象中的key,函数整体内容为value储存到ao对象中
+        // AO{
+        // a:function a(){},
+        // b:3,
+        // c:undefined
+        // }
+        // 最后执行函数的结果为：
+        // function a(){}，123，3，function c(){}
 
-// (全局)预编译分三个步骤：
-// 1：生成GO对象 GO｛｝(global object) 这个GO就是window
-// 2: 将全局的变量声明（的名）储存一GO对象中，value为undefinde
-// 3: 将全局的函数声明的函数名作为go对象中的key,函数整体内容为value储存到go对象中
+        // (全局)预编译分三个步骤：
+        // 1：生成GO对象 GO｛｝(global object) 这个GO就是window
+        // 2: 将全局的变量声明（的名）储存一GO对象中，value为undefinde
+        // 3: 将全局的函数声明的函数名作为go对象中的key,函数整体内容为value储存到go对象中
 
-// 作用域链：GO>>AO>>AO
-// function a(){
-// var b =10;
-// function c (){
-// var b =123;
-// console.log(b);
-// function d(){	
-// }
-// }
-// console.log(b);
-// console.log©;
-// }
-// var b =123;
-// a();
-// 如上代码中会产生一个GO对象，三个AO对象
-// 
+        // 作用域链：GO>>AO>>AO
+        // function a(){
+        // var b =10;
+        // function c (){
+        // var b =123;
+        // console.log(b);
+        // function d(){	
+        // }
+        // }
+        // console.log(b);
+        // console.log©;
+        // }
+        // var b =123;
+        // a();
+        // 如上代码中会产生一个GO对象，三个AO对象
+        // 
 
         //作用域链
 
@@ -192,7 +192,7 @@
         //     for(var i=0;i<10;i++){
         //         // arr[k]=function(){  //只定义不执行  //arr[i]=函数 引用 具体函数内容不管；等到外部执行；
         //         //     document.write(k+" ");//没有执行 等到保存到外部在执行；
-                    
+
         //         // }   
         //             (function(j){document.write(j)}(i));//解决方法
         //     }
@@ -204,6 +204,83 @@
         // }
 
         //-----------------------------
+        //原型链原型------------------------
+        // Person.prototype.name="dsf";
+        // Person.prototype.say=function(){
+        //     console.log(this.name);
+        // }
+        // function Person(){
+
+        // }
+        // var per1=new Person();
+        // var per2=new Person();
+        // // console.log(per1.name);
+        // // console.log(per2.name);
+        // per2.name="dfsfsdfs";
+        // per1.say();
+        // per2.say();
+
+        //-----------------------------------------
+        // Person.prototype.Lastname="dsf";
+        // Person.prototype.say=function(){
+        //     console.log("hehe");
+        // }
+        // function Person(name,age,sex){
+        //     this.name=name;
+        //     this.age=age;
+        //     this.sex=sex;
+
+        // }
+        // var per1=new Person('xuing',35,'male');
+        // var per2=new Person();
+        // // console.log(per1.name);
+        // // console.log(per2.name);
+        // per2.name="dfsfsdfs";
+        // per1.say();
+        // per2.say();
+        //--------------------------------------
+        // Car.prototype.heigth=4900;
+        // Car.prototype.carName="bmw";
+        // Car.prototype.lang=1400;
+            // person.prototype={
+            //     height:545;
+            //     carName:"fsd";
+            // }
+        // function Car(color,owner){
+        //     this.owner=owner;
+        //     this.color=color;
+        //     // this.carName="bmw";
+        //     // this.lang=4900;
+        //     // this.height=1400;提取到原型
+        // }
+        //  var car=new Car('red','jsida');
+        //--------------------------------------------
+
+
+        // Person.prototype.Lastname = "dsf";
+
+        // function Person(name) {
+        //     this.name = name;
+        // }
+        // var per1 = new Person('xuing');
+        // per1.Lastname = "gaile"; //通过实例改不了原型 访问可以；delete也删不了但返回ture；
+        //-------------------------------------------------
+
+        //  Person.prototype.Lastname = "dsf";
+
+        // function Person() {
+        //    //new的时候  var this={
+        //     //  __proto__:Person.prototype  指向原型；
+        //    //}
+        // }
+        // var per1 = new Person();
+        Array.prototype.push=function(){
+            for(var i=0;i<arguments.length;i++){
+                this[this.length]=arguments[i];
+            }
+            return this.length;
+        }
+
     </script>
 </body>
 
